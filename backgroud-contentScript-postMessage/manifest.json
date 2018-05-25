@@ -1,0 +1,50 @@
+{
+	"manifest_version": 2,
+	"name": "Backgroud ContentScript PostMessage",
+	"description": "background与contentScript通过postMessage进行通信",
+	"version": "1.0",
+	/**
+	* 权限列表
+	*/
+	"permissions": [
+		"tabs",
+		"activeTab",
+		"contextMenus",
+		"http://*/*",
+		"https://*/*"
+	],
+	/**
+	* 插件后台脚本
+	*/
+	"background": {
+		"scripts": [
+			"lib/md5.min.js",
+			"background/background.js"
+		],
+		"persistent": false
+	},
+	"browser_action": {
+		"default_title": "点击我，给contentScript发送消息"
+	},
+	/**
+	* 操作目标页面
+	*/
+	"content_scripts": [
+		{
+			"matches": [
+				"http://*/*",
+				"https://*/*"
+			],
+			"exclude_globs": [
+				"http://localhost/*",
+				"http://127.0.0.1/*",
+				"http://192.*/*"
+			],
+			"js": [
+				"lib/jquery.min.js",
+				"lib/md5.min.js",
+				"contentScript/contentScript.js"
+			]
+		}
+	]
+}
